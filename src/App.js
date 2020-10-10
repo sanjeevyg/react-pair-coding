@@ -18,9 +18,17 @@ class App extends Component{
   
   addToAlive = (character) => {
     if(!this.state.alive.find(aliveCharacter => aliveCharacter === character)) {
-        // this.setState({alive: [...this.state.alive, character]})
+        this.setState({alive: [...this.state.alive, character]})
         const updatedCharacters = this.state.characters.filter(charac => charac !== character)
         this.setState({characters: updatedCharacters, alive: [...this.state.alive, character]})
+    }
+  }
+
+  addToCard = (aliveCharacter) => {
+    if(!this.state.characters.find(character => character === aliveCharacter)) {
+      this.setState({characters: [...this.state.characters, aliveCharacter]})
+      const updatedAliveCharacters = this.state.alive.filter(aliveCharac => aliveCharac !== aliveCharacter)
+      this.setState({characters: [...this.state.characters, aliveCharacter], alive: updatedAliveCharacters})
     }
   }
 
@@ -42,6 +50,7 @@ class App extends Component{
         <div>
           <AliveCharacters
             aliveCharacs={this.state.alive}
+            addToCard={this.addToCard}
           />
         </div>
       </section>
